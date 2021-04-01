@@ -8,7 +8,7 @@ class CheckIsCheckmate(unittest.TestCase):
 
     # creating a mock for GetListOfValidMoves
     @mock.patch('ChessRules.ChessRules.GetListOfValidMoves')
-    def test_call_count(self, mockGetListOfValidMoves):
+    def test_called_with_args(self, mockGetListOfValidMoves):
         "Unit test for ChessRules method: IsCheckmate"
 
         # Creating objects of Chessboard and ChessRules class and calling IsCheckmate function with each piece for initial position and "black" color
@@ -23,8 +23,8 @@ class CheckIsCheckmate(unittest.TestCase):
             for col in range(0, 8):
                 expected_arg_calls.append(mock.call(cb.GetState(), 'black', (row, col)))
 
-        # check the number of times your mocked method was called
-        self.assertEqual(mockGetListOfValidMoves.call_count, 16)
+        # assert that method was called at least once with some argument
+        mockGetListOfValidMoves.assert_any_call(cb.GetState(), "black", (1, 6))
 
 
 if __name__ == "__main__":
